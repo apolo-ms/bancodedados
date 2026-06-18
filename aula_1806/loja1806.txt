@@ -1,0 +1,251 @@
+Microsoft Windows [versão 10.0.19045.5131]
+(c) Microsoft Corporation. Todos os direitos reservados.
+
+C:\Users\Aluno>cd C:\xampp\mysql\bin
+
+C:\xampp\mysql\bin>mysql -u root
+ERROR 2002 (HY000): Can't connect to MySQL server on 'localhost' (10061)
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.27-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> lojs
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'lojs' at line 1
+MariaDB [(none)]> use loja;
+Database changed
+MariaDB [loja]> select * from produtos;
++------------+-----------------------------+-------+-------+-----------------+--------------+--------------------------------------+
+| id_produto | nome                        | preco | quant | marca           | id_categoria | obcervacoes                          |
++------------+-----------------------------+-------+-------+-----------------+--------------+--------------------------------------+
+|          1 | celular                     |  1.50 |     1 | hellokit        |            2 | super fofo                           |
+|          2 | tomate                      |  5.50 |     1 | supercomidas    |            1 | gostoso                              |
+|          3 | camisa                      | 60.00 |     1 | roupas legais   |            3 | estilosa                             |
+|          4 | limpatudo                   | 10.00 |     1 | produtosmagicos |            4 | ele limpa tudo                       |
+|          5 | file de pombo da rodoviaria |  1.00 |     1 | carnesboas      |            5 | file de um pobo achado na rodoviaria |
++------------+-----------------------------+-------+-------+-----------------+--------------+--------------------------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [loja]> select nome, preco, obcervacoes from produtos;
++-----------------------------+-------+--------------------------------------+
+| nome                        | preco | obcervacoes                          |
++-----------------------------+-------+--------------------------------------+
+| celular                     |  1.50 | super fofo                           |
+| tomate                      |  5.50 | gostoso                              |
+| camisa                      | 60.00 | estilosa                             |
+| limpatudo                   | 10.00 | ele limpa tudo                       |
+| file de pombo da rodoviaria |  1.00 | file de um pobo achado na rodoviaria |
++-----------------------------+-------+--------------------------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [loja]> select nome, preco, obcervacoes from produtos wher preco > 10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'preco > 10' at line 1
+MariaDB [loja]> select nome, preco, obcervacoes from produtos where preco > 10;
++--------+-------+-------------+
+| nome   | preco | obcervacoes |
++--------+-------+-------------+
+| camisa | 60.00 | estilosa    |
++--------+-------+-------------+
+1 row in set (0.001 sec)
+
+MariaDB [loja]> select nome, preco, obcervacoes from produtos where marca == 'hellokit';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= 'hellokit'' at line 1
+MariaDB [loja]> select nome, preco, obcervacoes from produtos where marca = 'hellokit';
++---------+-------+-------------+
+| nome    | preco | obcervacoes |
++---------+-------+-------------+
+| celular |  1.50 | super fofo  |
++---------+-------+-------------+
+1 row in set (0.001 sec)
+
+MariaDB [loja]> select nome, preco, obcervacoes from produtos [ORDER BY nome ASC|DESC];
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '[ORDER BY nome ASC|DESC]' at line 1
+MariaDB [loja]> select nome, preco, obcervacoes from produtos ORDER BY nome ASC|DESC;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '|DESC' at line 1
+MariaDB [loja]> select nome, preco, obcervacoes from produtos ORDER BY nome ASC|DESC];
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '|DESC]' at line 1
+MariaDB [loja]> select nome, preco, obcervacoes from produtos ORDER BY nome ASC limit 5;
++-----------------------------+-------+--------------------------------------+
+| nome                        | preco | obcervacoes                          |
++-----------------------------+-------+--------------------------------------+
+| camisa                      | 60.00 | estilosa                             |
+| celular                     |  1.50 | super fofo                           |
+| file de pombo da rodoviaria |  1.00 | file de um pobo achado na rodoviaria |
+| limpatudo                   | 10.00 | ele limpa tudo                       |
+| tomate                      |  5.50 | gostoso                              |
++-----------------------------+-------+--------------------------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [loja]> select nome, preco, obcervacoes from produtos ORDER BY preco ASC limit 5;
++-----------------------------+-------+--------------------------------------+
+| nome                        | preco | obcervacoes                          |
++-----------------------------+-------+--------------------------------------+
+| file de pombo da rodoviaria |  1.00 | file de um pobo achado na rodoviaria |
+| celular                     |  1.50 | super fofo                           |
+| tomate                      |  5.50 | gostoso                              |
+| limpatudo                   | 10.00 | ele limpa tudo                       |
+| camisa                      | 60.00 | estilosa                             |
++-----------------------------+-------+--------------------------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [loja]> select nome, preco, obcervacoes from produtos ORDER BY preco DESC limit 5;
++-----------------------------+-------+--------------------------------------+
+| nome                        | preco | obcervacoes                          |
++-----------------------------+-------+--------------------------------------+
+| camisa                      | 60.00 | estilosa                             |
+| limpatudo                   | 10.00 | ele limpa tudo                       |
+| tomate                      |  5.50 | gostoso                              |
+| celular                     |  1.50 | super fofo                           |
+| file de pombo da rodoviaria |  1.00 | file de um pobo achado na rodoviaria |
++-----------------------------+-------+--------------------------------------+
+5 rows in set (0.000 sec)
+
+MariaDB [loja]> select nome, preco, obcervacoes from produtos ORDER BY preco DESC limit 5;
++-----------------------------+-------+--------------------------------------+
+| nome                        | preco | obcervacoes                          |
++-----------------------------+-------+--------------------------------------+
+| camisa                      | 60.00 | estilosa                             |
+| limpatudo                   | 10.00 | ele limpa tudo                       |
+| tomate                      |  5.50 | gostoso                              |
+| celular                     |  1.50 | super fofo                           |
+| file de pombo da rodoviaria |  1.00 | file de um pobo achado na rodoviaria |
++-----------------------------+-------+--------------------------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [loja]> select avg(preco)as prco_medio from produtos
+    -> ;
++------------+
+| prco_medio |
++------------+
+|  15.600000 |
++------------+
+1 row in set (0.001 sec)
+
+MariaDB [loja]> SELECT COUNT(*) AS total_produtos FROM produtos;
++----------------+
+| total_produtos |
++----------------+
+|              5 |
++----------------+
+1 row in set (0.001 sec)
+
+MariaDB [loja]> SELECT nome, quant FROM produtos ORDER BY quant DESC LIMIT 1;
++---------+-------+
+| nome    | quant |
++---------+-------+
+| celular |     1 |
++---------+-------+
+1 row in set (0.001 sec)
+
+MariaDB [loja]> SELECT nome, quant FROM produtos ORDER BY preco DESC LIMIT 1;
++--------+-------+
+| nome   | quant |
++--------+-------+
+| camisa |     1 |
++--------+-------+
+1 row in set (0.001 sec)
+
+MariaDB [loja]> SELECT p.nome, c.nome_cat FROM produtos p JOIN categorias c ON p.id_categoria = c.id_categoria;
+ERROR 1054 (42S22): Unknown column 'c.nome_cat' in 'field list'
+MariaDB [loja]> SELECT p.nome, c.eletronicos FROM produtos p JOIN categorias c ON p.id_categoria = c.id_categoria;
+ERROR 1054 (42S22): Unknown column 'c.eletronicos' in 'field list'
+MariaDB [loja]> SELECT p.nome, c.2 FROM produtos p JOIN categorias c ON p.id_categoria = c.id_categoria;
+ERROR 1054 (42S22): Unknown column 'c.2' in 'field list'
+MariaDB [loja]> SELECT p.nome, c.preco FROM produtos p JOIN categorias c ON p.id_categoria = c.id_categoria;
+ERROR 1054 (42S22): Unknown column 'c.preco' in 'field list'
+MariaDB [loja]> SELECT p.nome, c.preco FROM produtos p JOIN categorias c ON p.id_categoria = c.id_categoria;
+ERROR 1054 (42S22): Unknown column 'c.preco' in 'field list'
+MariaDB [loja]> describe categorias
+    -> ;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| id_categoria | int(11)      | NO   | PRI | NULL    | auto_increment |
+| categoria    | varchar(255) | YES  |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+2 rows in set (0.020 sec)
+
+MariaDB [loja]> SELECT p.nome, c.categoria FROM produtos p JOIN categorias c ON p.id_categoria = c.id_categoria;
++-----------------------------+--------------+
+| nome                        | categoria    |
++-----------------------------+--------------+
+| celular                     | eletronicos  |
+| tomate                      | hortifruit   |
+| camisa                      | roupas       |
+| limpatudo                   | limpeza      |
+| file de pombo da rodoviaria | refrigerados |
++-----------------------------+--------------+
+5 rows in set (0.001 sec)
+
+MariaDB [loja]> SELECT p.nome, p.marca, p.preco FROM produtos p JOIN categorias c ON p.id_categoria = c.id_categoria
+    -> where c.nome_cat = 'Laticínios';
+ERROR 1054 (42S22): Unknown column 'c.nome_cat' in 'where clause'
+MariaDB [loja]> SELECT p.nome, p.marca, p.preco FROM produtos p JOIN categorias c ON p.id_categoria = c.id_categoria
+    -> where c.categoria = 'eletronicos';
++---------+----------+-------+
+| nome    | marca    | preco |
++---------+----------+-------+
+| celular | hellokit |  1.50 |
++---------+----------+-------+
+1 row in set (0.001 sec)
+
+MariaDB [loja]> SELECT c.nome_cat, COUNT(*) AS total_produtos FROM produtos p JOIN categorias c ON p.id_categoria = c.id_categoria GROUP BY c.categoria;
+ERROR 1054 (42S22): Unknown column 'c.nome_cat' in 'field list'
+MariaDB [loja]> SELECT c.categoria, COUNT(*) AS total_produtos FROM produtos p JOIN categorias c ON p.id_categoria = c.id_categoria GROUP BY c.categoria;
++--------------+----------------+
+| categoria    | total_produtos |
++--------------+----------------+
+| eletronicos  |              1 |
+| hortifruit   |              1 |
+| limpeza      |              1 |
+| refrigerados |              1 |
+| roupas       |              1 |
++--------------+----------------+
+5 rows in set (0.001 sec)
+
+MariaDB [loja]> SELECT * FROM produtos
+    -> WHERE preco BETWEEN 10 AND 20;
++------------+-----------+-------+-------+-----------------+--------------+----------------+
+| id_produto | nome      | preco | quant | marca           | id_categoria | obcervacoes    |
++------------+-----------+-------+-------+-----------------+--------------+----------------+
+|          4 | limpatudo | 10.00 |     1 | produtosmagicos |            4 | ele limpa tudo |
++------------+-----------+-------+-------+-----------------+--------------+----------------+
+1 row in set (0.000 sec)
+
+MariaDB [loja]> SELECT * FROM produtos
+    -> WHERE nome LIKE 'P%';
+Empty set (0.001 sec)
+
+MariaDB [loja]> SELECT * FROM produtos
+    -> WHERE nome LIKE 'e%';
+Empty set (0.001 sec)
+
+MariaDB [loja]> SELECT * FROM produtos
+    -> WHERE nome LIKE 'c%';
++------------+---------+-------+-------+---------------+--------------+-------------+
+| id_produto | nome    | preco | quant | marca         | id_categoria | obcervacoes |
++------------+---------+-------+-------+---------------+--------------+-------------+
+|          1 | celular |  1.50 |     1 | hellokit      |            2 | super fofo  |
+|          3 | camisa  | 60.00 |     1 | roupas legais |            3 | estilosa    |
++------------+---------+-------+-------+---------------+--------------+-------------+
+2 rows in set (0.001 sec)
+
+MariaDB [loja]> SELECT DISTINCT marca FROM produtos;
++-----------------+
+| marca           |
++-----------------+
+| hellokit        |
+| supercomidas    |
+| roupas legais   |
+| produtosmagicos |
+| carnesboas      |
++-----------------+
+5 rows in set (0.001 sec)
+
+MariaDB [loja]>
